@@ -1,7 +1,27 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>M0K0's GA</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Genetic Algorithm in C# and Blazor</h1>
 
-Welcome to your new app.
+<h3>Goal of the project:</h3>
+<p> find nearly optimal sulutions via random mutation and species selection </p>
+
+<h4>Features:</h4>
+<p>
+	-random crossover positions of genes
+</p> 
+<p>
+	-roulette wheel selection of fittest individuals
+</p> 
+
+<input @bind="what_to_bruteforce"/>
+<p>You chose: @what_to_bruteforce</p>
+
+@code
+{
+	string what_to_bruteforce {get;set;}
+
+}
+
