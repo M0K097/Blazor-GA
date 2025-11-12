@@ -2,27 +2,22 @@
 @rendermode InteractiveServer
 
 <PageTitle>M0K0's GA</PageTitle>
-
 <h1>Genetic Algorithm in C# and Blazor</h1>
-
 <h3>Goal of the project:</h3>
 <p> find nearly optimal sulutions via random mutation and species selection </p>
-
 <h4>Features:</h4>
-<p>
-	-random crossover positions of genes
-</p> 
-<p>
-	-roulette wheel selection of fittest individuals
-</p> 
+<p>-random crossover positions of genes</p> 
+<p>-roulette wheel selection of fittest individuals</p> 
 
+<h4>SETTINGS:</h4>
 <input @bind="what_to_bruteforce"/>
 <input @bind="solution_space"/>
 <input @bind="population_size"/>
 <input @bind="dna_length"/>
 <p>You chose: @what_to_bruteforce</p>
+<p>PopulationSize: @real_size</p>
 
-<button @bind="start">START</button>
+<button @onclick="evolve">START</button>
 
 @code
 {
@@ -30,9 +25,13 @@
 	string solution_space {get;set;} = String.Empty;
 	int dna_length {get;set;} = 0;
 	int population_size {get; set;} = 0;
+	int real_size = 0;
 
-	void start()
+	void evolve()
 	{
+		Population pop = new Population(solution_space,dna_length,population_size);
+		pop.init();
+		real_size = pop.all_genomes.Count();
 
 	}
 

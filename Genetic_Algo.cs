@@ -6,7 +6,17 @@ public class Genome
 
 	public string logos {get; set;}
 	int dna_length {get;set;}
-	List<char> genetic_material = new List<char>();
+	public List<char> genetic_material = new List<char>();
+
+	public void init()
+	{
+		genetic_material.Clear();
+		for(int x = 0; x < dna_length; x++)
+		{
+			var picked = dice.Next(logos.Count());
+			genetic_material.Add(logos[picked]);
+		}
+	}
 
 	public Genome(string solution_space, int dna_length)
 	{
@@ -14,28 +24,21 @@ public class Genome
 		this.dna_length = dna_length;
 	}
 
-	public void init()
-	{
-		genetic_material.Clear();
-		for(int x = 0; x < dna_length; x++)
-		{
-			var picked = dice.Next(logos.Count() - 1);
-			genetic_material.Add(logos[picked]);
-		}
-	}
+
 }
 
 
 public class Population
 {
-	List<Genome> all_genomes = new List<Genome>();
-	string logos {get;set;}
-	int dna_length {get;set;}
+	public List<Genome> all_genomes = new List<Genome>();
+	public string logos {get;set;}
+	public int dna_length {get;set;}
+	public int size {get;set;}
 	
-	public void init(int number_of_individuals)
+	public void init()
 	{
 		all_genomes.Clear();
-		for (int x = 0; x < number_of_individuals ; x++)
+		for (int x = 0; x < size ; x++)
 		{
 			Genome new_individual = new Genome(logos, dna_length);
 			new_individual.init();
@@ -43,15 +46,12 @@ public class Population
 		}
 	}
 
-	Population(string solution_space, int dna_length)
+	public Population(string solution_space, int dna_length, int population_size)
 	{
 		logos = solution_space;
 		this.dna_length = dna_length;
+		size = population_size;
 	}
 	
 }
 
-class Utilities
-{
-
-}
