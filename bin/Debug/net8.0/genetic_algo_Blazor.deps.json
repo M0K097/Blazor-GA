@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "genetic_algo_Blazor/1.0.0": {
+        "runtime": {
+          "genetic_algo_Blazor.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "genetic_algo_Blazor/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

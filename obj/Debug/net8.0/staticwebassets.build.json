@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "kp+k0PWWMO+8pPaTxNStAVICY16q58phEPuRrkshyg4=",
+  "Source": "genetic_algo_Blazor",
+  "BasePath": "_content/genetic_algo_Blazor",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "genetic_algo_Blazor/wwwroot",
+      "Source": "genetic_algo_Blazor",
+      "ContentRoot": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/wwwroot/",
+      "BasePath": "_content/genetic_algo_Blazor",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/bundle/genetic_algo_Blazor.styles.css",
+      "SourceId": "genetic_algo_Blazor",
+      "SourceType": "Computed",
+      "ContentRoot": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/bundle/",
+      "BasePath": "_content/genetic_algo_Blazor",
+      "RelativePath": "genetic_algo_Blazor.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/bundle/genetic_algo_Blazor.styles.css"
+    },
+    {
+      "Identity": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/projectbundle/genetic_algo_Blazor.bundle.scp.css",
+      "SourceId": "genetic_algo_Blazor",
+      "SourceType": "Computed",
+      "ContentRoot": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/projectbundle/",
+      "BasePath": "_content/genetic_algo_Blazor",
+      "RelativePath": "genetic_algo_Blazor.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/projectbundle/genetic_algo_Blazor.bundle.scp.css"
+    },
+    {
+      "Identity": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/wwwroot/app.css",
+      "SourceId": "genetic_algo_Blazor",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/wwwroot/",
+      "BasePath": "_content/genetic_algo_Blazor",
+      "RelativePath": "app.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/app.css"
+    }
+  ]
+}

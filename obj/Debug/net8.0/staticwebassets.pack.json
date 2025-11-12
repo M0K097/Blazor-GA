@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/obj/Debug/net8.0/scopedcss/projectbundle/genetic_algo_Blazor.bundle.scp.css",
+      "PackagePath": "staticwebassets/genetic_algo_Blazor.bundle.scp.css"
+    },
+    {
+      "Id": "/home/m0k0/Desktop/C#_Projects/genetic_algo_Blazor/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.genetic_algo_Blazor.props",
+      "PackagePath": "build\\genetic_algo_Blazor.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.genetic_algo_Blazor.props",
+      "PackagePath": "buildMultiTargeting\\genetic_algo_Blazor.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.genetic_algo_Blazor.props",
+      "PackagePath": "buildTransitive\\genetic_algo_Blazor.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.genetic_algo_Blazor.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/genetic_algo_Blazor.props" />
+</Project>
