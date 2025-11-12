@@ -26,7 +26,7 @@ public class Genome
 }
 
 
-class Population
+public class Population
 {
 	List<Genome> all_genomes = new List<Genome>();
 	string logos {get;set;}

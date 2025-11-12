@@ -17,11 +17,25 @@
 </p> 
 
 <input @bind="what_to_bruteforce"/>
+<input @bind="solution_space"/>
+<input @bind="population_size"/>
+<input @bind="dna_length"/>
 <p>You chose: @what_to_bruteforce</p>
+
+<button @bind="start">START</button>
 
 @code
 {
-	string what_to_bruteforce {get;set;}
+	string what_to_bruteforce {get;set;} = String.Empty;
+	string solution_space {get;set;} = String.Empty;
+	int dna_length {get;set;} = 0;
+	int population_size {get; set;} = 0;
+
+	void start()
+	{
+
+	}
+
 
 }
 
