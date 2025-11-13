@@ -18,6 +18,19 @@ public class Genome
 		}
 	}
 
+	public string give_genes()
+	{
+		var gtemp = Convert.ToString(genetic_material);
+		if(gtemp != null)
+		{
+			return gtemp;
+		}
+		else
+		{
+			return "";
+		}
+	}
+
 	public Genome(string solution_space, int dna_length)
 	{
 		logos = solution_space;

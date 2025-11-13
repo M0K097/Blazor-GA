@@ -2,37 +2,47 @@
 @rendermode InteractiveServer
 
 <PageTitle>M0K0's GA</PageTitle>
-<h1>Genetic Algorithm in C# and Blazor</h1>
-<h3>Goal of the project:</h3>
-<p> find nearly optimal sulutions via random mutation and species selection </p>
-<h4>Features:</h4>
-<p>-random crossover positions of genes</p> 
-<p>-roulette wheel selection of fittest individuals</p> 
+<h2>Genetic Algorithm in C# and Blazor</h2>
 
-<h4>SETTINGS:</h4>
-<input @bind="what_to_bruteforce"/>
-<input @bind="solution_space"/>
-<input @bind="population_size"/>
-<input @bind="dna_length"/>
-<p>You chose: @what_to_bruteforce</p>
-<p>PopulationSize: @real_size</p>
+<p>
+_________SETTINGS___________ 
+<div>
+	<label for="goal">GOAL:</label>
+	<input id="goal" @bind="goal"/>
+</div>
 
-<button @onclick="evolve">START</button>
+<div>
+	<label for="solution_space">SOLUTION-SPACE:</label>
+	<input id="solution_space" @bind="solution_space"/>
+</div>
+
+<div>
+	<label for="population_size">POPULATION-SIZE:</label>
+	<input id="population_size" @bind="population_size"/>
+</div>
+
+<div>
+	<label for="dna_length">DNA-LENGTH:</label>
+	<input id="dna_length" @bind="dna_length"/>
+</div>
+</p>
+
+<button @onclick="evolve">EVOLVE</button>
+
+
+
 
 @code
 {
-	string what_to_bruteforce {get;set;} = String.Empty;
+	string goal {get;set;} = String.Empty;
 	string solution_space {get;set;} = String.Empty;
 	int dna_length {get;set;} = 0;
 	int population_size {get; set;} = 0;
-	int real_size = 0;
 
 	void evolve()
 	{
 		Population pop = new Population(solution_space,dna_length,population_size);
 		pop.init();
-		real_size = pop.all_genomes.Count();
-
 	}
 
 
