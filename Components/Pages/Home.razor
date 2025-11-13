@@ -27,10 +27,13 @@ _________SETTINGS___________
 </div>
 </p>
 
-<button @onclick="evolve">EVOLVE</button>
+<button @onclick="evolve">EVOLVE POPULATION</button>
 
-<p> @test </p>
-
+<p>POPULATION:</p>
+@foreach(string dna in genome_data)
+{
+	<li>@dna</li>
+}
 
 @code
 {
@@ -38,14 +41,18 @@ _________SETTINGS___________
 	string solution_space {get;set;} = String.Empty;
 	int dna_length {get;set;} = 0;
 	int population_size {get; set;} = 0;
-	string test = "hello world";
+	List<string> genome_data {get;set;} = new List<string>();
 
 	void evolve()
 	{
 		Population pop = new Population(solution_space,dna_length,population_size);
-		pop.init(10);
-		var dna = pop.all_genomes.First().genetic_material;
-		test = new string(dna.ToArray());
+		pop.init(population_size);
+		genome_data.Clear();
+		foreach(Genome individual in pop.all_genomes)
+		{
+			string dna = new string(individual.genetic_material.ToArray());
+			genome_data.Add(dna);
+		}
 	}
 
 

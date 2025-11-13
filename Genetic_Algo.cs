@@ -15,6 +15,7 @@ public class Genome
 		}
 	}
 
+
 	public Genome(string solution_space)
 	{
 		logos = solution_space;
