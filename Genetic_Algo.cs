@@ -2,7 +2,7 @@
 
 public class Genome
 {
-	Random dice = new Random();
+	public Random dice = new Random();
 	public string logos {get; set;}
 	public List<char> genetic_material = new List<char>();
 
@@ -11,10 +11,10 @@ public class Genome
 		for(int x=0;x<dna_length;x++)
 		{
 			char[] tmp = logos.ToCharArray(); 
-			genetic_material.Add(tmp[0]);
+			var pick = tmp[dice.Next(tmp.Length-1)];
+			genetic_material.Add(pick);
 		}
 	}
-
 
 	public Genome(string solution_space)
 	{
@@ -36,6 +36,27 @@ public class Population
 			Genome individual = new Genome(logos);
 			individual.init(dna_length);
 			all_genomes.Add(individual);
+		}
+
+	}
+
+	public void crossover(Genome a, Genome b)
+	{
+		Genome[] children = new Genome[2];
+		var a_dna = a.genetic_material;
+		var b_dna = b.genetic_material;
+		var cut_pos = a.dice.Next(a.genetic_material.Count()-1);
+
+		for(int x=0;x<a_dna.Count()-1;x++)
+		{
+			if(x < cut_pos)
+			{
+				a_dna[x] = b_dna[x];
+			}
+			else
+			{
+				b_dna[x] = a_dna[x];
+			}
 		}
 
 	}

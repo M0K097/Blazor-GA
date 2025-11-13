@@ -1,8 +1,9 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
 
 <PageTitle>M0K0's GA</PageTitle>
-<h2>Genetic Algorithm in C# and Blazor</h2>
+<h2>A genetic algorithm in C# and Blazor</h2>
 
 <p>
 _________SETTINGS___________ 
@@ -25,9 +26,9 @@ _________SETTINGS___________
 	<label for="dna_length">DNA-LENGTH:</label>
 	<input id="dna_length" @bind="dna_length"/>
 </div>
+	<button @onclick="evolve">EVOLVE POPULATION</button>
 </p>
 
-<button @onclick="evolve">EVOLVE POPULATION</button>
 
 <p>POPULATION:</p>
 @foreach(string dna in genome_data)
@@ -47,6 +48,8 @@ _________SETTINGS___________
 	{
 		Population pop = new Population(solution_space,dna_length,population_size);
 		pop.init(population_size);
+
+
 		genome_data.Clear();
 		foreach(Genome individual in pop.all_genomes)
 		{
@@ -54,7 +57,6 @@ _________SETTINGS___________
 			genome_data.Add(dna);
 		}
 	}
-
 
 }
 
