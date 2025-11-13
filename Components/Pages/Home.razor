@@ -29,7 +29,7 @@ _________SETTINGS___________
 
 <button @onclick="evolve">EVOLVE</button>
 
-
+<p> @test </p>
 
 
 @code
@@ -38,11 +38,14 @@ _________SETTINGS___________
 	string solution_space {get;set;} = String.Empty;
 	int dna_length {get;set;} = 0;
 	int population_size {get; set;} = 0;
+	string test = "hello world";
 
 	void evolve()
 	{
 		Population pop = new Population(solution_space,dna_length,population_size);
-		pop.init();
+		pop.init(10);
+		var dna = pop.all_genomes.First().genetic_material;
+		test = new string(dna.ToArray());
 	}
 
 

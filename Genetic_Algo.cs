@@ -3,41 +3,22 @@
 public class Genome
 {
 	Random dice = new Random();
-
 	public string logos {get; set;}
-	int dna_length {get;set;}
 	public List<char> genetic_material = new List<char>();
 
-	public void init()
+	public void init(int dna_length)
 	{
-		genetic_material.Clear();
-		for(int x = 0; x < dna_length; x++)
+		for(int x=0;x<dna_length;x++)
 		{
-			var picked = dice.Next(logos.Count());
-			genetic_material.Add(logos[picked]);
+			char[] tmp = logos.ToCharArray(); 
+			genetic_material.Add(tmp[0]);
 		}
 	}
 
-	public string give_genes()
-	{
-		var gtemp = Convert.ToString(genetic_material);
-		if(gtemp != null)
-		{
-			return gtemp;
-		}
-		else
-		{
-			return "";
-		}
-	}
-
-	public Genome(string solution_space, int dna_length)
+	public Genome(string solution_space)
 	{
 		logos = solution_space;
-		this.dna_length = dna_length;
 	}
-
-
 }
 
 
@@ -46,24 +27,22 @@ public class Population
 	public List<Genome> all_genomes = new List<Genome>();
 	public string logos {get;set;}
 	public int dna_length {get;set;}
-	public int size {get;set;}
 	
-	public void init()
+	public void init(int size)
 	{
-		all_genomes.Clear();
-		for (int x = 0; x < size ; x++)
+		for(int x = 0; x < size ; x++)
 		{
-			Genome new_individual = new Genome(logos, dna_length);
-			new_individual.init();
-			all_genomes.Add(new_individual);
+			Genome individual = new Genome(logos);
+			individual.init(dna_length);
+			all_genomes.Add(individual);
 		}
+
 	}
 
 	public Population(string solution_space, int dna_length, int population_size)
 	{
 		logos = solution_space;
 		this.dna_length = dna_length;
-		size = population_size;
 	}
 	
 }
