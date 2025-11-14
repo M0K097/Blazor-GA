@@ -22,7 +22,7 @@ public class Genome
 				var chance = dice.Next(100);
 				if (chance > mutation_rate)
 				{
-						var new_pick = dice.Next(genetic_material.Count() - 1);
+						var new_pick = dice.Next(logos.Count() - 1);
 						genetic_material[pos] = logos[new_pick];
 				}
 			}
@@ -54,12 +54,10 @@ public class Population
 
 		public void evaluate(List<Genome> genomes, Action<Genome> fitness_function)
 		{
-
 				foreach (Genome g in genomes)
 				{
 						fitness_function(g);
 				}
-
 		}
 
 
