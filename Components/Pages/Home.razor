@@ -8,79 +8,86 @@
 <p>
 _________SETTINGS___________ 
 <div>
+	<label for="goal">goal:</label>
 	<input id="goal" @bind="goal"/>
 </div>
 <div>
-	<label for="solution_space">SOLUTION-SPACE:</label>
+	<label for="solution_space">solutionspace:</label>
 	<input id="solution_space" @bind="solution_space"/>
 </div>
 <div>
-	<label for="population_size">POPULATION-SIZE:</label>
+	<label for="population_size">populationsize:</label>
 	<input id="population_size" @bind="population_size"/>
 </div>
 <div>
-	<label for="dna_length">DNA-LENGTH:</label>
-	<input id="dna_length" @bind="dna_length"/>
-</div>
-<div>
-	<label for="generations">NUMBER OF GENERATIONS</label>
+	<label for="generations">iterations</label>
 	<input id="generations" @bind="generations"/>
 </div>
-	<button @onclick="initialize">initialize Population</button>
 	<button @onclick="evolve">evolve Population</button>
 </p>
 <p>
+	<div>
 	POPULATION:
+	</div>
+	<div>
 	Generation @counter
+	</div>
 </p>
 
-@foreach(string dna in genome_data)
+
+@foreach(Genome g in individuals)
 {
-	<li>@dna</li>
+<li>@g.score =[@g.get_dna()]</li>
+}
+
+@code
+{
+	public int fitnes_function(Genome g)
+	{
+		int score = 0;
+		var dna = g.genetic_material;
+		for(int i = 0 ; i < dna.Count()-1 ; i++)
+		{
+			if(dna[i] == goal[i])
+			{
+				score++;
+			}
+		}
+		return score;
+	}
 }
 
 @code
 {
 	List<string> genome_data {get;set;} = new List<string>();
+	List<Genome> individuals = new List<Genome>();
 	string solution_space {get;set;} = String.Empty;
 	string goal {get;set;} = String.Empty;
 	Population pop = new Population("",0,0);
 	int population_size {get; set;} = 0;
 	int generations {get;set;} = 0;
-	int dna_length {get;set;} = 0;
 	int counter  = 0;
 
-	void initialize()
-	{
-		pop = new Population(solution_space,dna_length,population_size);
-		pop.init(population_size);
-	}
 
 	void evolve()
 	{
-	/*
+		pop = new Population(solution_space,goal.Length,population_size);
+		pop.init(population_size);
+		counter = 0;
+
 		for (int x=0;x<generations;x++)
 		{
+			pop.evaluate(fitnes_function);
+			pop.roulette_wheel_selection();
 			counter++;
-			List<Genome> p = pop.all_genomes;
-			Genome a = p[0];
-			Genome b = p[1];
-			pop.crossover(a,b);
 
-		}
-	*/
 		foreach(Genome genome in pop.all_genomes)
 		{
-			genome.mutate(100);
+			genome.mutate(20);
 		}	
-		
-  		genome_data.Clear();
-		foreach(Genome individual in pop.all_genomes)
-		{
-			string dna = new string(individual.genetic_material.ToArray());
-			genome_data.Add(dna);
 		}
 
+		individuals = pop.all_genomes;	
 	}
 }
 

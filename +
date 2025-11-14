@@ -66,13 +66,16 @@ public class Population
 			{
 				g.score =+ fitness_function(g);
 			}
+
+			var sorted_genomes = all_genomes.OrderBy( genome => genome.score );
+			all_genomes.Clear();
+			foreach(Genome g in sorted_genomes)
+			{
+				all_genomes.Add(g);
+
+			}
+		}
 		
-		}
-
-		public void sort()
-		{
-
-		}
 
 		public void roulette_wheel_selection()
 		{
@@ -96,6 +99,8 @@ public class Population
 				var parent2 = wheel[pick2];
 				crossover(parent1,parent2); 
 			}
+
+			var sorted_genomes = all_genomes.OrderBy( genome => genome.score );
 		}
 
 		public void crossover(Genome a, Genome b)
