@@ -20,7 +20,7 @@ public class Genome
 			for(int pos = 0; pos < genetic_material.Count()-1;pos++)
 			{
 				var chance = dice.Next(100);
-				if (chance > mutation_rate)
+				if (chance < mutation_rate)
 				{
 						var new_pick = dice.Next(logos.Count() - 1);
 						genetic_material[pos] = logos[new_pick];

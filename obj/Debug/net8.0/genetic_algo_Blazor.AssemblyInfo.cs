@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("genetic_algo_Blazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b268de6097b53020340494abbc21c33f170218af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04311a1989875fe138580a0b790ced23f7e4fc3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("genetic_algo_Blazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("genetic_algo_Blazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

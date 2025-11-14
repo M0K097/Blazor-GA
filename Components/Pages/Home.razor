@@ -69,17 +69,18 @@ _________SETTINGS___________
 
 		}
 	*/
-	foreach(Genome genome in pop.all_genomes)
-	{
-		genome.mutate(0);
-	}
+		foreach(Genome genome in pop.all_genomes)
+		{
+			genome.mutate(100);
+		}	
+		
+  		genome_data.Clear();
+		foreach(Genome individual in pop.all_genomes)
+		{
+			string dna = new string(individual.genetic_material.ToArray());
+			genome_data.Add(dna);
+		}
 
-	genome_data.Clear();
-	foreach(Genome individual in pop.all_genomes)
-	{
-		string dna = new string(individual.genetic_material.ToArray());
-		genome_data.Add(dna);
-	}
 	}
 }
 
