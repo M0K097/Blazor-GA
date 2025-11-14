@@ -8,29 +8,30 @@
 <p>
 _________SETTINGS___________ 
 <div>
-	<label for="goal">GOAL:</label>
 	<input id="goal" @bind="goal"/>
 </div>
-
 <div>
 	<label for="solution_space">SOLUTION-SPACE:</label>
 	<input id="solution_space" @bind="solution_space"/>
 </div>
-
 <div>
 	<label for="population_size">POPULATION-SIZE:</label>
 	<input id="population_size" @bind="population_size"/>
 </div>
-
 <div>
 	<label for="dna_length">DNA-LENGTH:</label>
 	<input id="dna_length" @bind="dna_length"/>
 </div>
+<div>
+	<label for="generations">NUMBER OF GENERATIONS</label>
+	<input id="generations" @bind="generations"/>
+</div>
 	<button @onclick="evolve">EVOLVE POPULATION</button>
 </p>
-
-
-<p>POPULATION:</p>
+<p>
+	POPULATION:
+	Generation @counter
+</p>
 @foreach(string dna in genome_data)
 {
 	<li>@dna</li>
@@ -41,22 +42,32 @@ _________SETTINGS___________
 	string goal {get;set;} = String.Empty;
 	string solution_space {get;set;} = String.Empty;
 	int dna_length {get;set;} = 0;
+	int counter  = 0;
 	int population_size {get; set;} = 0;
 	List<string> genome_data {get;set;} = new List<string>();
+	int generations {get;set;} = 0;
+
 
 	void evolve()
 	{
 		Population pop = new Population(solution_space,dna_length,population_size);
 		pop.init(population_size);
 
-
-		genome_data.Clear();
-		foreach(Genome individual in pop.all_genomes)
+		for (int x=0;x<generations;x++)
 		{
-			string dna = new string(individual.genetic_material.ToArray());
-			genome_data.Add(dna);
+			counter++;
+			List<Genome> p = pop.all_genomes;
+			Genome a = p[0];
+			Genome b = p[1];
+			pop.crossover(a,b);
+
+			genome_data.Clear();
+			foreach(Genome individual in pop.all_genomes)
+			{
+				string dna = new string(individual.genetic_material.ToArray());
+				genome_data.Add(dna);
+			}
 		}
 	}
-
 }
 
