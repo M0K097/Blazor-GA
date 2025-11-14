@@ -47,7 +47,6 @@ public class Population
 		public List<Genome> all_genomes = new List<Genome>();
 		public string logos { get; set; }
 		public int dna_length { get; set; }
-		List<Genome> wheel = new List<Genome>();
 
 		public void init(int size)
 		{
@@ -64,59 +63,60 @@ public class Population
 		{
 			foreach(Genome g in all_genomes)
 			{
-				g.score =+ fitness_function(g);
+				g.score = fitness_function(g);
 			}
-		
 		}
 
-		public void sort()
+		public void sort_by_score()
 		{
+			all_genomes = all_genomes.OrderByDescending
+			(genome => genome.score).ToList();
+		}
 
+		
+		public void mutate(int mutation_rate)
+		{
+			foreach(Genome individual in all_genomes)
+			{
+				individual.mutate(mutation_rate);
+			}
 		}
 
 		public void roulette_wheel_selection()
 		{
-			wheel.Clear();
-			int pos = 0;
-		    	foreach(Genome g in all_genomes)
+			List<Genome> wheel = new List<Genome>();
+			int size = all_genomes.Count();
+			for (int x = 0; x < size; x++)
 			{
-				for(int x = 0; x < pos ; x++)
+				for(int i = 0; i < size - x; i++)
 				{
-					wheel.Add(g);
+					wheel.Add(all_genomes[x]);
 				}
-				pos++;
-			}	
+			}
 
+			all_genomes.Clear();
 			Random rnd = new Random();
-			for(int i = 0; i < all_genomes.Count() - 1; i++)
+			for(int i = 0; i < size ; i++)
 			{
-				var pick1 = rnd.Next(all_genomes.Count()-1);
-				var pick2 = rnd.Next(all_genomes.Count()-1);
-				var parent1 = wheel[pick1];
-				var parent2 = wheel[pick2];
-				crossover(parent1,parent2); 
+				var pick1 = rnd.Next(wheel.Count());
+				var pick2 = rnd.Next(wheel.Count());
+				var a = wheel[pick1];
+			 	var b = wheel[pick2];
+				Genome child = crossover(a,b); 
+				all_genomes.Add(child);
 			}
 		}
 
-		public void crossover(Genome a, Genome b)
+		public Genome crossover(Genome a, Genome b)
 		{
-				Genome[] children = new Genome[2];
-				var a_dna = a.genetic_material;
-				var b_dna = b.genetic_material;
-				var cut_pos = a.dice.Next(a.genetic_material.Count() - 1);
-
-				for (int x = 0; x < a_dna.Count() - 1; x++)
+				var cut_pos = a.dice.Next(a.genetic_material.Count());
+				for (int x = cut_pos ; x < a.genetic_material.Count()-1; x++)
 				{
-						if (x < cut_pos)
-						{
-								a_dna[x] = b_dna[x];
-						}
-						else
-						{
-								b_dna[x] = a_dna[x];
-						}
+					a.genetic_material[x] = b.genetic_material[x];
 				}
+				a.score = 0;
 
+				return a;
 		}
 
 

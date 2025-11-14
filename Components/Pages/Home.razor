@@ -16,7 +16,7 @@ _________SETTINGS___________
 	<input id="solution_space" @bind="solution_space"/>
 </div>
 <div>
-	<label for="population_size">populationsize:</label>
+	<label fot="population_size">populationsize:</label>
 	<input id="population_size" @bind="population_size"/>
 </div>
 <div>
@@ -46,7 +46,7 @@ _________SETTINGS___________
 	{
 		int score = 0;
 		var dna = g.genetic_material;
-		for(int i = 0 ; i < dna.Count()-1 ; i++)
+		for(int i = 0 ; i < dna.Count() ; i++)
 		{
 			if(dna[i] == goal[i])
 			{
@@ -59,11 +59,9 @@ _________SETTINGS___________
 
 @code
 {
-	List<string> genome_data {get;set;} = new List<string>();
 	List<Genome> individuals = new List<Genome>();
 	string solution_space {get;set;} = String.Empty;
 	string goal {get;set;} = String.Empty;
-	Population pop = new Population("",0,0);
 	int population_size {get; set;} = 0;
 	int generations {get;set;} = 0;
 	int counter  = 0;
@@ -71,23 +69,22 @@ _________SETTINGS___________
 
 	void evolve()
 	{
-		pop = new Population(solution_space,goal.Length,population_size);
-		pop.init(population_size);
 		counter = 0;
+		Population pop = new Population(solution_space,goal.Length,population_size);
+		pop.init(population_size);
 
 		for (int x=0;x<generations;x++)
 		{
-			pop.evaluate(fitnes_function);
-			pop.roulette_wheel_selection();
 			counter++;
-
-		foreach(Genome genome in pop.all_genomes)
-		{
-			genome.mutate(20);
-		}	
+			pop.mutate(20);
+			pop.evaluate(fitnes_function);
+			pop.sort_by_score();
+			pop.roulette_wheel_selection();
 		}
-
-		individuals = pop.all_genomes;	
+		
+			pop.evaluate(fitnes_function);
+			pop.sort_by_score();
+			individuals = pop.all_genomes;	
 	}
 }
 
