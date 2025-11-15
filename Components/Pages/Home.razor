@@ -7,37 +7,46 @@
 
 <p>
 _________SETTINGS___________ 
+
 <div>
 	<label for="goal">goal:</label>
 	<input id="goal" @bind="goal"/>
 </div>
+@if(show_settings)
+	{
 <div>
 	<label for="solution_space">solutionspace:</label>
 	<input id="solution_space" @bind="solution_space"/>
 </div>
 <div>
-	<label fot="population_size">populationsize:</label>
+	<label for="population_size">populationsize:</label>
 	<input id="population_size" @bind="population_size"/>
 </div>
+
+<!--
+<div>	
+	<label for="elitism">populationsize:</label>
+	<input id="elitism" @bind="elitism"/>
+</div>
+/!-->
 <div>
 	<label for="generations">iterations</label>
 	<input id="generations" @bind="generations"/>
 </div>
+	}
 	<button @onclick="evolve">evolve Population</button>
-</p>
-<p>
-	<div>
-	POPULATION:
-	</div>
-	<div>
-	Generation @counter
-	</div>
-</p>
-
+	<button @onclick="toogle_settings">show settings</button>
+<div>
+	<p>
+		POPULATION
+	<br>
+		Generation Nr.@counter
+	</p>
+</div>
 
 @foreach(Genome g in individuals)
 {
-<li>@g.score =[@g.get_dna()]</li>
+	<li>@g.score =[@g.get_dna()]</li>
 }
 
 @code
@@ -64,9 +73,10 @@ _________SETTINGS___________
 	string goal {get;set;} = String.Empty;
 	int population_size {get; set;} = 0;
 	int generations {get;set;} = 0;
+	bool show_settings {get; set;}
+	//int elitism {get; set;}
+
 	int counter  = 0;
-
-
 	void evolve()
 	{
 		counter = 0;
@@ -76,15 +86,28 @@ _________SETTINGS___________
 		for (int x=0;x<generations;x++)
 		{
 			counter++;
-			pop.mutate(0);
+			//pop.mutate(0);
 			pop.evaluate(fitnes_function);
 			pop.sort_by_score();
-			pop.roulette_wheel_selection();
+			pop.roulette_wheel_selection(0);
 		}
 		
 			pop.evaluate(fitnes_function);
 			pop.sort_by_score();
 			individuals = pop.all_genomes;	
+	}
+
+	void toogle_settings()
+	{
+		if(show_settings)
+		{
+			show_settings = false;
+		}
+		else
+		{
+			show_settings = true;
+		}
+		
 	}
 }
 
