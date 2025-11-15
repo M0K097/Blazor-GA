@@ -27,7 +27,7 @@ public class Genome
 			for(int pos = 0; pos < genetic_material.Count()-1;pos++)
 			{
 				var chance = dice.Next(100);
-				if (chance < mutation_rate)
+				if (chance <= mutation_rate)
 				{
 						var new_pick = dice.Next(logos.Count() - 1);
 						genetic_material[pos] = logos[new_pick];
@@ -88,7 +88,7 @@ public class Population
 			int size = all_genomes.Count();
 			for (int x = 0; x < size; x++)
 			{
-				for(int i = 0; i < size - x; i++)
+				for(int i = 0; i < all_genomes[x].score ; i++)
 				{
 					wheel.Add(all_genomes[x]);
 				}

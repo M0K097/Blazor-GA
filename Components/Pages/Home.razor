@@ -76,7 +76,7 @@ _________SETTINGS___________
 		for (int x=0;x<generations;x++)
 		{
 			counter++;
-			pop.mutate(20);
+			pop.mutate(0);
 			pop.evaluate(fitnes_function);
 			pop.sort_by_score();
 			pop.roulette_wheel_selection();
