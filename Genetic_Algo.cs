@@ -24,15 +24,13 @@ public class Genome
 
 		public void mutate(int mutation_rate)
 		{
-			for(int pos = 0; pos < genetic_material.Count()-1;pos++)
-			{
-				var chance = dice.Next(100);
-				if (chance <= mutation_rate)
+			var chance = dice.Next(100);
+			var pos = dice.Next(genetic_material.Count()-1);
+				if (chance < mutation_rate)
 				{
 					var new_pick = dice.Next(logos.Count() - 1);
 					genetic_material[pos] = logos[new_pick];
 				}
-			}
 		}
 
 		public Genome(string solution_space)
@@ -59,7 +57,7 @@ public class Genome
 		}
 
 		public void evaluate(Func<Genome,int> fitness_function)
-		{
+			{
 			foreach(Genome g in all_genomes)
 			{
 				g.score = fitness_function(g);
@@ -80,39 +78,51 @@ public class Genome
 			}
 		}
 
-		// => todo fix this => get 2 offsprings to keep genetic material
-		public void roulette_wheel_selection(int elitism)
+		public List<Genome> roulette_wheel_selection(List<Genome> genomes)
 		{
-			List<Genome> wheel = new List<Genome>();
-			int size = all_genomes.Count();
-			for (int x = 0; x < size; x++)
+			List<Genome> next_generation = new List<Genome>();
+			List<Genome> offspring = new List<Genome>();
+			int sum_fitness = genomes.Sum(x => x.score);
+			
+			while(next_generation.Count() < genomes.Count())
 			{
-				for(int i = 0; i <= all_genomes[x].score ; i++)
+
+				var random = rnd.Next(sum_fitness);
+				int comulative = 0;
+				for(int x = 0; x < genomes.Count(); x++ )
 				{
-					wheel.Add(all_genomes[x]);
+					comulative += genomes[x].score;
+					if(comulative >= random)
+					{
+						offspring.Add(genomes[x]);
+						if(offspring.Count() > 1)
+						{
+							next_generation.AddRange(crossover(offspring[0],offspring[1]));
+							offspring.Clear();
+							break;
+						}
+					}
 				}
-			}
 				
-			for(int i = elitism; i < size ; i++)
-			{
-				var pick1 = rnd.Next(wheel.Count());
-				var pick2 = rnd.Next(wheel.Count());
-				var a = wheel[pick1];
-			 	var b = wheel[pick2];
-				Genome child = crossover(a,b); 
-				all_genomes[i] = child;
 			}
+			return next_generation;
 		}
 
-		public Genome crossover(Genome a, Genome b)
+		public List<Genome> crossover(Genome a, Genome b)
 		{
-			var cut_pos = a.dice.Next(a.genetic_material.Count());
-			for (int x = cut_pos ; x < a.genetic_material.Count()-1; x++)
+			var cut_pos = a.dice.Next(a.genetic_material.Count()-1);
+			List<char> tmp_material = new List<char>(a.genetic_material);
+			for (int x = 0 ; x < a.genetic_material.Count(); x++)
 			{
-				a.genetic_material[x] = b.genetic_material[x];
+				if (x < cut_pos)
+				{
+					a.genetic_material[x] = b.genetic_material[x];
+					b.genetic_material[x] = tmp_material[x];
+				}
 			}
 			a.score = 0;
-			return a;
+			b.score = 0;
+			return new List<Genome>(){a,b};
 		}
 
 		public Population(string solution_space, int dna_length, int population_size)

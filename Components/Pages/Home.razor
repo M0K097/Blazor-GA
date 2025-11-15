@@ -8,8 +8,10 @@
 <div>
 	<label for="goal">GOAL:</label>
 	<input id="goal" @bind="goal"/>
-	<button @onclick="evolve">evolve Population</button>
-	<button @onclick="toogle_settings">show settings</button>
+	@goal.Count()
+	<button @onclick="init">initialize new population</button>
+	<button @onclick="evolve">evolve population</button>
+	<button @onclick="toogle_settings">@settings_text</button>
 </div>
 
 @if(show_settings)
@@ -24,12 +26,11 @@
 		<label for="population_size">populationsize:</label>
 		<input id="population_size" @bind="population_size"/>
 		<br>
-		<label for="elitism">populationsize:</label>
-		<input id="elitism" @bind="elitism"/>
-		<br>
 		<label for="generations">iterations</label>
 		<input id="generations" @bind="generations"/>
 		<br>
+		<label for="mu">mutationrate</label>
+		<input id="mu" @bind="mutation_rate"/>
 	</div>
 }
 
@@ -66,34 +67,49 @@
 	string goal {get;set;} = String.Empty;
 	int population_size {get; set;} = 0;
 	int generations {get;set;} = 0;
-	bool show_settings {get; set;}
-	int elitism {get; set;}
+	int mutation_rate {get;set;} = 0;
+	bool show_settings {get; set;} = false;
+	string settings_text = "show settings";
+	Population pop = new Population("",0,0);
 
 	int counter  = 0;
-	void evolve()
+	void init()
 	{
-		counter = 0;
-		Population pop = new Population(solution_space,goal.Length,population_size);
-		pop.init(population_size);
-
-		for (int x=0;x<generations;x++)
-		{
-			counter++;
-			//pop.mutate(0);
+			counter = 0;
+			pop = new Population(solution_space,goal.Length,population_size);
+			pop.init(population_size);
 			pop.evaluate(fitnes_function);
 			pop.sort_by_score();
-			pop.roulette_wheel_selection(0);
-		}
-		
-		pop.evaluate(fitnes_function);
-		pop.sort_by_score();
-		individuals = pop.all_genomes;	
+			individuals = pop.all_genomes;	
+	
 	}
-
+	void evolve()
+	{
+		for(int x = 0; x < generations ; x++)
+		{	
+			pop.evaluate(fitnes_function);
+			pop.sort_by_score();
+			var p = pop.all_genomes;
+			pop.roulette_wheel_selection(p);
+			pop.mutate(mutation_rate);
+			counter++;
+			pop.evaluate(fitnes_function);
+			pop.sort_by_score();
+			individuals = pop.all_genomes;	
+		}
+	}
 	void toogle_settings()
 	{
-		if(show_settings){show_settings = false;}
-		else{show_settings = true;}
+		if(show_settings)
+		{
+			show_settings = false;
+			settings_text = "show settings";
+		}
+		else
+		{
+			show_settings = true;
+			settings_text = "hide settings";
+		}
 	}
 }
 
