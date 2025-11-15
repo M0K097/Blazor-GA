@@ -80,6 +80,7 @@ public class Genome
 			}
 		}
 
+		// => todo fix this => get 2 offsprings to keep genetic material
 		public void roulette_wheel_selection(int elitism)
 		{
 			List<Genome> wheel = new List<Genome>();
