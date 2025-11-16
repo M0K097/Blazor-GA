@@ -1,0 +1,54 @@
+﻿@page "/Knappsack"
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations;
+<NavLink href="/">Home</NavLink>
+<PageTitle>Knappsack</PageTitle>
+<h2>The infamous "Knappsack" problem</h2>
+
+
+<div>
+	<EditForm model="@settings"  OnValidSubmid="processValidSubmit">
+		<DataAnnotationsValidator />
+			<div>
+				<label for="ps">size of population:</label>
+				<InputNumber id="ps" @bind-Value="settings.population_size"/>
+				<ValidationMessage For="@(()=>settings.population_size)"/>
+				<br>
+				<label for="ni">number of iterations:</label>
+				<InputNumber id="ni" @bind-Value="settings.number_of_iterations"/>
+				<ValidationMessage For="@(()=>settings.number_of_iterations)"/>
+				<br>
+				<label for="pm">propability for mutation:</label>
+				<InputNumber id="pm" @bind-Value="settings.muation_propability"/>
+				<ValidationMessage For="@(()=>settings.muation_propability)"/>
+			</div>
+	</EditForm>
+</div>
+
+@code
+{
+	public int fitnes_function(Genome g)
+	{
+		int score = 1;
+		return score;
+	}
+}
+
+@code
+{
+ ga_settings settings = new ga_settings();
+	public class ga_settings
+	{
+	
+		[Required(ErrorMessage="populationsize is needet")]
+		[Range(0,1000,ErrorMessage="Must be from 0 - 1000")]
+		public int? population_size {get;set;}
+		[Required(ErrorMessage="number of iterations is needet")]
+		[Range(0,10000,ErrorMessage="Must be from 0 - 10000")]
+		public int? number_of_iterations {get;set;}
+		[Required(ErrorMessage="mutationrate is needet")]
+		[Range(0,100,ErrorMessage="Must be from 0 - 100")]
+		public int? muation_propability {get;set;}
+	}
+}
+
