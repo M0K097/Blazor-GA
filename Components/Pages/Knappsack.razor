@@ -5,14 +5,20 @@
 <PageTitle>Knappsack</PageTitle>
 <h2>The infamous "Knappsack" problem</h2>
 
+<InputRadioGroup @bind-Value="show_menu">
+	<InputRadio Value="1"/>genetic algorithm<br>
+	<InputRadio Value="2"/>travelling salesman<br>
+</InputRadioGroup>
+
+@if (@show_menu == 1)
+{
 
 <div>
 	<EditForm model="@settings"  OnValidSubmid="processValidSubmit">
 		<DataAnnotationsValidator />
 			<div>
 				<label for="ps">size of population:</label>
-				<InputNumber id="ps" @bind-Value="settings.population_size"/>
-				<ValidationMessage For="@(()=>settings.population_size)"/>
+				<InputNumber id="ps" @bind-Value="settings.population_size"/><ValidationMessage For="@(()=>settings.population_size)"/>
 				<br>
 				<label for="ni">number of iterations:</label>
 				<InputNumber id="ni" @bind-Value="settings.number_of_iterations"/>
@@ -25,6 +31,48 @@
 	</EditForm>
 </div>
 
+}
+else
+{
+
+
+<div>
+	<button @onclick="add">ADD ITEM</button>
+</div>
+}
+<div>
+	<p>TOTAL ITEMS: @all_items.Count()</p>
+
+</div>
+<div>
+<table>
+	<thread>
+		<tr>
+			<th>Name</th>
+			<th>Weight</th>
+			<th>Value</th>
+			<th>Picked</th>
+		</tr>
+	</thread>
+	<tbody>
+		@foreach(CItem i in  all_items)
+		{
+			<tr>
+				<td>@i.name</td>
+				<td>@i.weight</td>
+				<td>@i.worth</td>
+				<td>@i.picked</td>
+			</tr>
+
+		}
+	</tbody>
+</table>
+</div>
+
+
+
+
+
 @code
 {
 	public int fitnes_function(Genome g)
@@ -36,7 +84,19 @@
 
 @code
 {
- ga_settings settings = new ga_settings();
+	List<CItem> all_items = new List<CItem>();
+	CItem Schuhe = new CItem("Schuhe",5,20);
+
+	public int show_menu = 1;
+
+
+	void add()
+	{
+		all_items.Add(Schuhe);
+	}
+
+
+	ga_settings settings = new ga_settings();
 	public class ga_settings
 	{
 	
@@ -50,5 +110,7 @@
 		[Range(0,100,ErrorMessage="Must be from 0 - 100")]
 		public int? muation_propability {get;set;}
 	}
+
+	
 }
 
