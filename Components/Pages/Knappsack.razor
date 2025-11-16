@@ -61,9 +61,8 @@ else
 				<td>@i.name</td>
 				<td>@i.weight</td>
 				<td>@i.worth</td>
-				<td>@i.picked</td>
+					<td><InputCheckbox @bind-Value=@i.picked/></td>
 			</tr>
-
 		}
 	</tbody>
 </table>
