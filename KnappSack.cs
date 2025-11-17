@@ -17,4 +17,16 @@ public class CItem
 	}
 }
 
+public class item_settings
+{
+	[Required(ErrorMessage="you need some capacity")]
+	[Range(1,10000,ErrorMessage="must be between 1 - 10000")]
+	public int capacity {get;set;}=1;
+
+	public void generate(int amount)
+	{
+
+	}
+}
+
 
