@@ -72,7 +72,7 @@ else
 	<p>
 		TOTAL ITEMS: @all_items.Count()
 		<br>
-		TOTAL WEIGHT: @get_total_weight()
+		TOTAL WEIGHT: @get_total_weight() | Picked: @pick_items();
 		<br>	TOTAL VALUE: @get_total_value()
 	</p>
 </div>
@@ -112,8 +112,11 @@ else
 	[Required(ErrorMessage="you need some capacity")]
 	[Range(1,1000,ErrorMessage="you need some capacity")]
 	int max_capacity{get;set;}=1; 
+	List<CItem> picked_items = new List<CItem>();
+	
 	int get_total_weight()
 	{
+		
 		int  total_weight = all_items.Where(i => i.picked).Sum(i => i.weight);
 		return total_weight;
 	}
@@ -128,6 +131,7 @@ else
 
 	public int show_menu = 1;
 	List<CItem> all_items = new List<CItem>();
+
 	CItem new_item = new CItem();
 	void add()
 	{
