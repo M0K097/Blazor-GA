@@ -1,9 +1,12 @@
 ﻿@page "/Knappsack"
 @rendermode InteractiveServer
 @using System.ComponentModel.DataAnnotations;
+
+
 <NavLink href="/">Home</NavLink>
 <PageTitle>Knappsack</PageTitle>
 <h2>The infamous "Knappsack" problem</h2>
+
 
 <InputRadioGroup @bind-Value="show_menu">
 	<InputRadio Value="1"/>genetic algorithm<br>
@@ -12,39 +15,44 @@
 
 @if (@show_menu == 1)
 {
-
-<div>
-	<EditForm model="@settings"  OnValidSubmid="processValidSubmit">
-		<DataAnnotationsValidator />
-			<div>
-				<label for="ps">size of population:</label>
-				<InputNumber id="ps" @bind-Value="settings.population_size"/><ValidationMessage For="@(()=>settings.population_size)"/>
+	<div>
+		<EditForm model="@settings"  OnValidSubmid="processValidSubmit">
+			<DataAnnotationsValidator />
+				<div>
+					<label for="ps">size of population:</label>
+					<InputNumber id="ps" @bind-Value="settings.population_size"/>
+					<ValidationMessage For="@(()=>settings.population_size)"/>
 				<br>
-				<label for="ni">number of iterations:</label>
-				<InputNumber id="ni" @bind-Value="settings.number_of_iterations"/>
-				<ValidationMessage For="@(()=>settings.number_of_iterations)"/>
+					<label for="ni">number of iterations:</label>
+					<InputNumber id="ni" @bind-Value="settings.number_of_iterations"/>
+					<ValidationMessage For="@(()=>settings.number_of_iterations)"/>
 				<br>
-				<label for="pm">propability for mutation:</label>
-				<InputNumber id="pm" @bind-Value="settings.muation_propability"/>
-				<ValidationMessage For="@(()=>settings.muation_propability)"/>
-			</div>
-	</EditForm>
-</div>
-
+					<label for="pm">propability for mutation:</label>
+					<InputNumber id="pm" @bind-Value="settings.muation_propability"/>
+					<ValidationMessage For="@(()=>settings.muation_propability)"/>
+				</div>
+		</EditForm>
+	</div>
 }
 else
 {
-
-
-<div>
-	<button @onclick="add">ADD ITEM</button>
-</div>
+	<div>
+		<EditForm model="@new_item">
+				<Label for="n">name</label>
+				<InputText id="n" @bind-Value="new_item.name"/>
+				<Label for="w">name</label>
+				<InputNumber id="w" @bind-Value="new_item.weight"/>
+				<Label for="v">name</label>
+				<InputNumber id="v" @bind-Value="new_item.worth"/>
+			<button @onclick="add">ADD ITEM</button>
+		</EditForm>
+		
+	</div>
 }
 <div>
 	<p>TOTAL ITEMS: @all_items.Count()</p>
 
 </div>
-<div>
 <table>
 	<thread>
 		<tr>
@@ -61,15 +69,11 @@ else
 				<td>@i.name</td>
 				<td>@i.weight</td>
 				<td>@i.worth</td>
-					<td><InputCheckbox @bind-Value=@i.picked/></td>
+				<InputCheckbox @bind-Value=@i.picked></InputCheckbox>
 			</tr>
 		}
 	</tbody>
 </table>
-</div>
-
-
-
 
 
 @code
@@ -83,15 +87,15 @@ else
 
 @code
 {
-	List<CItem> all_items = new List<CItem>();
-	CItem Schuhe = new CItem("Schuhe",5,20);
-
 	public int show_menu = 1;
 
-
+	List<CItem> all_items = new List<CItem>();
+	CItem new_item = new CItem();
 	void add()
 	{
-		all_items.Add(Schuhe);
+		CItem created_item = new CItem();
+		created_item.init(new_item.name, new_item.weight, new_item.worth);
+		all_items.Add(created_item);
 	}
 
 
