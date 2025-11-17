@@ -15,6 +15,7 @@
 	<InputRadioGroup @bind-Value="show_menu">
 		<InputRadio Value="1"/>genetic algorithm<br>
 		<InputRadio Value="2"/>travelling salesman<br>
+		<InputRadio Value="3"/>items<br>
 	</InputRadioGroup>
 </p>
 
@@ -37,24 +38,35 @@
 		</EditForm>
 	</div>
 }
-else
+else if (@show_menu == 2)
 {
 	<div>
 		<EditForm model="@new_item">
 			<DataAnnotationsValidator/>
 			<button @onclick="add">ADD ITEM</button>
-				<Label for="n">NAME:</label>
+				<label for="n">NAME:</label>
 				<InputText id="n" @bind-Value="new_item.name"/>
 				<ValidationMessage For="@(()=>new_item.name)"/>
-				<Label for="w">WEIGHT:</label>
+				<label for="w">WEIGHT:</label>
 				<InputNumber id="w" @bind-Value="new_item.weight"/>
 				<ValidationMessage For="@(()=>new_item.weight)"/>
-				<Label for="v">VALUE:</label>
+				<label for="v">VALUE:</label>
 				<InputNumber id="v" @bind-Value="new_item.worth"/>
 				<ValidationMessage For="@(()=>new_item.worth)"/>
 		</EditForm>
 		
 	</div>
+}
+else 
+{
+<div>
+	<EditForm model="@settings_for_items">
+		<DataAnnotationsValidator/>
+				<label for="c">TOTAL CAPACITY:</label>
+				<InputNumber id="c" @bind-Value="settings_for_items.capacity"/>
+				<ValidationMessage For="@(()=>settings_for_items.capacity)"/>
+	</EditForm>
+</div>
 }
 <div>
 	<p>
@@ -63,7 +75,6 @@ else
 		TOTAL WEIGHT: @get_total_weight()
 		<br>	TOTAL VALUE: @get_total_value()
 	</p>
-</div>
 </div>
 <table>
 	<thread>
@@ -98,6 +109,9 @@ else
 
 @code
 {
+	[Required(ErrorMessage="you need some capacity")]
+	[Range(1,1000,ErrorMessage="you need some capacity")]
+	int max_capacity{get;set;}=1; 
 	int get_total_weight()
 	{
 		int  total_weight = all_items.Where(i => i.picked).Sum(i => i.weight);
@@ -109,6 +123,8 @@ else
 		int total_value = all_items.Where(i=>i.picked).Sum(i=>i.worth);
 		return total_value;
 	}
+
+	item_settings settings_for_items = new item_settings(); 
 
 	public int show_menu = 1;
 	List<CItem> all_items = new List<CItem>();
