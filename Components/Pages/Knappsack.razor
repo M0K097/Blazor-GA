@@ -1,17 +1,22 @@
 ﻿@page "/Knappsack"
 @rendermode InteractiveServer
 @using System.ComponentModel.DataAnnotations;
+@using System.Linq;
 
 
 <NavLink href="/">Home</NavLink>
 <PageTitle>Knappsack</PageTitle>
 <h2>The infamous "Knappsack" problem</h2>
+<h4>welcome to NP-hard problems (nondeterministic polynomial time)</h4>
 
-
-<InputRadioGroup @bind-Value="show_menu">
-	<InputRadio Value="1"/>genetic algorithm<br>
-	<InputRadio Value="2"/>travelling salesman<br>
-</InputRadioGroup>
+<p>
+	OPTIONS:
+	<br>
+	<InputRadioGroup @bind-Value="show_menu">
+		<InputRadio Value="1"/>genetic algorithm<br>
+		<InputRadio Value="2"/>travelling salesman<br>
+	</InputRadioGroup>
+</p>
 
 @if (@show_menu == 1)
 {
@@ -22,11 +27,9 @@
 					<label for="ps">size of population:</label>
 					<InputNumber id="ps" @bind-Value="settings.population_size"/>
 					<ValidationMessage For="@(()=>settings.population_size)"/>
-				<br>
 					<label for="ni">number of iterations:</label>
 					<InputNumber id="ni" @bind-Value="settings.number_of_iterations"/>
 					<ValidationMessage For="@(()=>settings.number_of_iterations)"/>
-				<br>
 					<label for="pm">propability for mutation:</label>
 					<InputNumber id="pm" @bind-Value="settings.muation_propability"/>
 					<ValidationMessage For="@(()=>settings.muation_propability)"/>
@@ -38,20 +41,29 @@ else
 {
 	<div>
 		<EditForm model="@new_item">
-				<Label for="n">name</label>
-				<InputText id="n" @bind-Value="new_item.name"/>
-				<Label for="w">name</label>
-				<InputNumber id="w" @bind-Value="new_item.weight"/>
-				<Label for="v">name</label>
-				<InputNumber id="v" @bind-Value="new_item.worth"/>
+			<DataAnnotationsValidator/>
 			<button @onclick="add">ADD ITEM</button>
+				<Label for="n">NAME:</label>
+				<InputText id="n" @bind-Value="new_item.name"/>
+				<ValidationMessage For="@(()=>new_item.name)"/>
+				<Label for="w">WEIGHT:</label>
+				<InputNumber id="w" @bind-Value="new_item.weight"/>
+				<ValidationMessage For="@(()=>new_item.weight)"/>
+				<Label for="v">VALUE:</label>
+				<InputNumber id="v" @bind-Value="new_item.worth"/>
+				<ValidationMessage For="@(()=>new_item.worth)"/>
 		</EditForm>
 		
 	</div>
 }
 <div>
-	<p>TOTAL ITEMS: @all_items.Count()</p>
-
+	<p>
+		TOTAL ITEMS: @all_items.Count()
+		<br>
+		TOTAL WEIGHT: @get_total_weight()
+		<br>	TOTAL VALUE: @get_total_value()
+	</p>
+</div>
 </div>
 <table>
 	<thread>
@@ -75,7 +87,6 @@ else
 	</tbody>
 </table>
 
-
 @code
 {
 	public int fitnes_function(Genome g)
@@ -87,8 +98,19 @@ else
 
 @code
 {
-	public int show_menu = 1;
+	int get_total_weight()
+	{
+		int  total_weight = all_items.Where(i => i.picked).Sum(i => i.weight);
+		return total_weight;
+	}
 
+	int get_total_value()
+	{
+		int total_value = all_items.Where(i=>i.picked).Sum(i=>i.worth);
+		return total_value;
+	}
+
+	public int show_menu = 1;
 	List<CItem> all_items = new List<CItem>();
 	CItem new_item = new CItem();
 	void add()
@@ -102,7 +124,6 @@ else
 	ga_settings settings = new ga_settings();
 	public class ga_settings
 	{
-	
 		[Required(ErrorMessage="populationsize is needet")]
 		[Range(0,1000,ErrorMessage="Must be from 0 - 1000")]
 		public int? population_size {get;set;}
@@ -113,7 +134,4 @@ else
 		[Range(0,100,ErrorMessage="Must be from 0 - 100")]
 		public int? muation_propability {get;set;}
 	}
-
-	
 }
-
